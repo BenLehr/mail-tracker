@@ -21,6 +21,7 @@ class CreateSentEmailsTable extends Migration
             $table->text('content')->nullable();
             $table->integer('opens')->nullable();
             $table->integer('clicks')->nullable();
+            $table->integer('campaign_id')->nullable();
             $table->timestamps();
         });
     }

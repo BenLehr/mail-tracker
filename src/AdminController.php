@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Illuminate\Routing\Controller;
 
 use jdavidbakr\MailTracker\Model\SentEmail;
+use jdavidbakr\MailTracker\Model\EmailCampaign;
 use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
 
 use Mail;
@@ -38,7 +39,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getIndex()
+    public function ORGgetIndex()
     {
         session(['mail-tracker-index-page' => request()->page]);
         $search = session('mail-tracker-index-search');
@@ -63,6 +64,25 @@ class AdminController extends Controller
 
         return \View('emailTrakingViews::index')->with('emails', $emails);
     }
+
+
+    public function getIndex()
+    {
+        session(['mail-tracker-index-page' => request()->page]);
+        $campaigns = EmailCampaign::all()->paginate(config('mail-tracker.emails-per-page'));
+
+
+        return \View('emailTrakingViews::index')->with('campaigns', $campaigns);
+    }
+
+    public function getDetail($id)
+    {
+        $campaign = EmailCampaign::find($id);
+        $emails = $campaign->emails;
+
+        return \View('emailTrakingViews::index')->with('emails', $emails);
+    }
+
 
     /**
      * Show Email.

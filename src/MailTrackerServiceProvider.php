@@ -136,6 +136,7 @@ class MailTrackerServiceProvider extends ServiceProvider
             if (!$this->isLumen()) {
                 Route::group($config_admin, function () {
                     Route::get('/', 'AdminController@getIndex')->name('mailTracker_Index');
+                    Route::get('campaign/{id}', 'AdminController@getDetail')->name('mailTracker_Detail');
                     Route::post('search', 'AdminController@postSearch')->name('mailTracker_Search');
                     Route::get('clear-search', 'AdminController@clearSearch')->name('mailTracker_ClearSearch');
                     Route::get('show-email/{id}', 'AdminController@getShowEmail')->name('mailTracker_ShowEmail');
@@ -146,6 +147,7 @@ class MailTrackerServiceProvider extends ServiceProvider
                 $app = $this->app;
                 $app->group($config_admin, function () use ($app) {
                     $app->get('/', 'AdminController@getIndex')->name('mailTracker_Index');
+                    $app->get('campaign/{id}', 'AdminController@getDetail')->name('mailTracker_Detail');
                     $app->post('search', 'AdminController@postSearch')->name('mailTracker_Search');
                     $app->get('clear-search', 'AdminController@clearSearch')->name('mailTracker_ClearSearch');
                     $app->get('show-email/{id}', 'AdminController@getShowEmail')->name('mailTracker_ShowEmail');

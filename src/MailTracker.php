@@ -116,12 +116,12 @@ class MailTracker implements \Swift_Events_SendListener
         }
 
         return $matches[1].route(
-            'mailTracker_n',
-            [
-                'l' => $url,
-                'h' => $this->hash
-            ]
-        );
+                'mailTracker_n',
+                [
+                    'l' => $url,
+                    'h' => $this->hash
+                ]
+            );
     }
 
     /**
@@ -147,7 +147,7 @@ class MailTracker implements \Swift_Events_SendListener
         foreach ($message->getTo() as $to_email => $to_name) {
             foreach ($message->getFrom() as $from_email => $from_name) {
                 $headers = $message->getHeaders();
-                if ($headers->get('X-No-Track')) {
+                if ($headers->get('X-No-Track') || $headers->get('X-Campaign-ID') === NULL ) {
                     // Don't send with this header
                     $headers->remove('X-No-Track');
                     // Don't track this email
@@ -175,9 +175,13 @@ class MailTracker implements \Swift_Events_SendListener
                     }
                 }
 
+                $campaign_id = $headers->get('X-Campaign-ID') ? $headers->get('X-Campaign-ID')->getValue() : NULL;
+
+
                 $tracker = SentEmail::create([
                     'hash' => $hash,
                     'headers' => $headers->toString(),
+                    'campaign_id' => $campaign_id,
                     'sender_name' => $from_name,
                     'sender_email' => $from_email,
                     'recipient_name' => $to_name,
