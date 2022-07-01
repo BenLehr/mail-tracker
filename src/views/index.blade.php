@@ -24,10 +24,10 @@
                             <td>{{$campaign->id}}</td>
                             <td>{{$campaign->date}}</td>
                             <td>{{$campaign->name}}</td>
-                            <td>{{$campaign->emails_send}}</td>
-                            <td>{{$campaign->emails_opened}}</td>
-                            <td>{{$campaign->opening_rate}}</td>
-                            <td><a href="mail-tracker/campaign/{{ $campaign->id  }}">Details</a></td>
+                            <td>{{$campaign->emailsSend()}}</td>
+                            <td>{{$campaign->emailsOpened()}}</td>
+                            <td>{{$campaign->openingRate()}}</td>
+                            <td><a href="{{ route('mailTracker_Detail', $campaign->id) }}">Details</a></td>
                         </tr>
                     @endforeach
                 </table>

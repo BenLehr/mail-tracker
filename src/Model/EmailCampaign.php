@@ -19,15 +19,30 @@ class EmailCampaign extends Model
         'name',
         'date',
         'password',
-        'opening_rate',
-        'emails_send',
-        'emails_opened',
+//        'opening_rate',
+//        'emails_send',
+//        'emails_opened',
     ];
 
 
     public function emails()
     {
         return $this->hasMany(SentEmail::class, 'campaign_id', 'id');
+    }
+
+    public function openingRate()
+    {
+        return $this->emailsOpened() != 0 ? $this->emailsOpened() / $this->emailsSend()->count() * 100 : 0;
+    }
+
+    public function emailsSend()
+    {
+        return $this->emails()->count();
+    }
+
+    public function emailsOpened()
+    {
+        return $this->emails()->where('opens', '>', 0)->count();
     }
 
 }

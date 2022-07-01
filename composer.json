@@ -10,9 +10,9 @@
     "homepage": "https://github.com/benlehr/MailTracker",
     "license": "MIT",
     "authors": [{
-        "name": "J David Baker",
-        "email": "me@jdavidbaker.com",
-        "homepage": "http://www.jdavidbaker.com",
+        "name": "Benjamin Lehr",
+        "email": "benlehr@trio-group.de",
+        "homepage": "https://trio-group.de",
         "role": "Developer"
     }],
     "require": {

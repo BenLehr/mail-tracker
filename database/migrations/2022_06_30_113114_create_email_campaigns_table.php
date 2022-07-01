@@ -18,9 +18,9 @@ class CreateEmailCampaignsTable extends Migration
             $table->timestamps();
             $table->text('name');
             $table->dateTime('date');
-            $table->integer('opening_rate')->nullable();
-            $table->integer('emails_send')->nullable();
-            $table->integer('emails_opened')->nullable();
+//            $table->integer('opening_rate')->nullable();
+//            $table->integer('emails_send')->nullable();
+//            $table->integer('emails_opened')->nullable();
         });
     }
 
