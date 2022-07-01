@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Model\SentEmail;
 
 class CreateSentEmailsTable extends Migration
 {

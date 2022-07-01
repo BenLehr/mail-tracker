@@ -1,13 +1,13 @@
 {
-    "name": "jdavidbakr/mail-tracker",
+    "name": "benlehr/mail-tracker",
     "type": "library",
     "description": "Logs and tracks all outgoing emails from Laravel",
     "keywords": [
-        "jdavidbakr",
+        "benlehr",
         "MailTracker"
     ],
     "minimum-stability": "dev",
-    "homepage": "https://github.com/jdavidbakr/MailTracker",
+    "homepage": "https://github.com/benlehr/MailTracker",
     "license": "MIT",
     "authors": [{
         "name": "J David Baker",
@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "jdavidbakr\\MailTracker\\": "src"
+            "benlehr\\MailTracker\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "jdavidbakr\\MailTracker\\Tests\\": "tests"
+            "benlehr\\MailTracker\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -46,7 +46,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "jdavidbakr\\MailTracker\\MailTrackerServiceProvider"
+                "benlehr\\MailTracker\\MailTrackerServiceProvider"
             ]
         }
     }

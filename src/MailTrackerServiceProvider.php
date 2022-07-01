@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace benlehr\MailTracker;
 
 use Mail;
 use Illuminate\Support\Arr;
@@ -111,7 +111,7 @@ class MailTrackerServiceProvider extends ServiceProvider
     protected function installRoutes()
     {
         $config = $this->app['config']->get('mail-tracker.route', []);
-        $config['namespace'] = 'jdavidbakr\MailTracker';
+        $config['namespace'] = 'benlehr\MailTracker';
 
         if (!$this->isLumen()) {
             Route::group($config, function () {
@@ -130,7 +130,7 @@ class MailTrackerServiceProvider extends ServiceProvider
         }
         // Install the Admin routes
         $config_admin = $this->app['config']->get('mail-tracker.admin-route', []);
-        $config_admin['namespace'] = 'jdavidbakr\MailTracker';
+        $config_admin['namespace'] = 'benlehr\MailTracker';
 
         if (Arr::get($config_admin, 'enabled', true)) {
             if (!$this->isLumen()) {
