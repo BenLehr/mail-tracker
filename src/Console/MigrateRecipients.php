@@ -1,10 +1,10 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Console;
+namespace benlehr\MailTracker\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Model\SentEmail;
 
 class MigrateRecipients extends Command
 {

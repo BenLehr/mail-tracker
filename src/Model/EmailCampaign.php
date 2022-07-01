@@ -1,10 +1,10 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Model;
+namespace benlehr\MailTracker\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Model\SentEmail;
 
 class EmailCampaign extends Model
 {

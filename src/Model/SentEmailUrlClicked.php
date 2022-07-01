@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Model;
+namespace benlehr\MailTracker\Model;
 
 use Illuminate\Database\Eloquent\Model;
 

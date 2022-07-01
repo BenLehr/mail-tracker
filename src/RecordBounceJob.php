@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace benlehr\MailTracker;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,9 +8,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Event;
-use jdavidbakr\MailTracker\Events\PermanentBouncedMessageEvent;
-use jdavidbakr\MailTracker\Events\TransientBouncedMessageEvent;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Events\PermanentBouncedMessageEvent;
+use benlehr\MailTracker\Events\TransientBouncedMessageEvent;
+use benlehr\MailTracker\Model\SentEmail;
 
 class RecordBounceJob implements ShouldQueue
 {

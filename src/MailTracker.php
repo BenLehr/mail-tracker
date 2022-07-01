@@ -1,12 +1,12 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace benlehr\MailTracker;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
-use jdavidbakr\MailTracker\Model\SentEmail;
-use jdavidbakr\MailTracker\Events\EmailSentEvent;
-use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
+use benlehr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Events\EmailSentEvent;
+use benlehr\MailTracker\Model\SentEmailUrlClicked;
 
 class MailTracker implements \Swift_Events_SendListener
 {

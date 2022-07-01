@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace benlehr\MailTracker;
 
 use Illuminate\Http\Request;
 use Response;
@@ -8,9 +8,9 @@ use Response;
 use App\Http\Requests;
 use Illuminate\Routing\Controller;
 
-use jdavidbakr\MailTracker\Model\SentEmail;
-use jdavidbakr\MailTracker\Model\EmailCampaign;
-use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
+use benlehr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Model\EmailCampaign;
+use benlehr\MailTracker\Model\SentEmailUrlClicked;
 
 use Mail;
 

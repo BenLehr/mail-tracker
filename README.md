@@ -30,7 +30,7 @@ There was a breaking change with the update to version 3.0, specifically regardi
 First, upgrade to version 2.2 by running:
 
 ```bash
-$ composer require jdavidbakr/mail-tracker ~2.2
+$ composer require benlehr/mail-tracker ~2.2
 ```
 
 If you are updating from an earlier version, you will need to update the config file and run the new migrations. For best results, make a backup copy of config/mail-tracker.php and the views in resources/views/vendor/emailTrackingViews (if they exists) to restore any values you have customized, then delete that file and run
@@ -47,13 +47,13 @@ Also note that the migration for the `sent_emails_url_clicked` table changed wit
 Via Composer
 
 ```bash
-$ composer require jdavidbakr/mail-tracker
+$ composer require benlehr/mail-tracker
 ```
 
 Publish the config file and migration
 
 ```bash
-$ php artisan vendor:publish --provider="jdavidbakr\MailTracker\MailTrackerServiceProvider"
+$ php artisan vendor:publish --provider="benlehr\MailTracker\MailTrackerServiceProvider"
 ```
 
 Run the migration
@@ -107,29 +107,29 @@ When you are in a dev environment (i.e. using the `.test` domain with Valet, or 
 
 ## Events
 
-When an email is sent, viewed, or a link is clicked, its tracking information is counted in the database using the jdavidbakr\MailTracker\Model\SentEmail model. This processing is done via dispatched jobs to the queue in order to prevent the database from being overwhelmed in an email blast situation. You may choose the queue that these events are dispatched via the `mail-tracker.tracker-queue` config setting, or leave it `null` to use the default queue. By using a non-default queue, you can prioritize application-critical tasks above these tracking tasks.
+When an email is sent, viewed, or a link is clicked, its tracking information is counted in the database using the benlehr\MailTracker\Model\SentEmail model. This processing is done via dispatched jobs to the queue in order to prevent the database from being overwhelmed in an email blast situation. You may choose the queue that these events are dispatched via the `mail-tracker.tracker-queue` config setting, or leave it `null` to use the default queue. By using a non-default queue, you can prioritize application-critical tasks above these tracking tasks.
 
 You may want to do additional processing on these events, so an event is fired in these cases:
 
--   jdavidbakr\MailTracker\Events\EmailSentEvent
+-   benlehr\MailTracker\Events\EmailSentEvent
     - Public attribute `sent_email` contains the `SentEmail` model
--   jdavidbakr\MailTracker\Events\ViewEmailEvent
+-   benlehr\MailTracker\Events\ViewEmailEvent
     - Public attribute `sent_email` contains the `SentEmail` model
     - Public attribute `ip_address` contains the IP address that was used to trigger the event
--   jdavidbakr\MailTracker\Events\LinkClickedEvent
+-   benlehr\MailTracker\Events\LinkClickedEvent
     - Public attribute `sent_email` contains the `SentEmail` model
     - Public attribute `ip_address` contains the IP address that was used to trigger the event
 
 If you are using the Amazon SNS notification system, these events are fired so you can do additional processing.
 
--   jdavidbakr\MailTracker\Events\EmailDeliveredEvent (when you received a "message delivered" event, you may want to mark the email as "good" or "delivered" in your database)
+-   benlehr\MailTracker\Events\EmailDeliveredEvent (when you received a "message delivered" event, you may want to mark the email as "good" or "delivered" in your database)
     - Public attribute `sent_email` contains the `SentEmail` model
     - Public attribute `email_address` contains the specific address that was used to trigger the event
--   jdavidbakr\MailTracker\Events\ComplaintMessageEvent (when you received a complaint, ex: marked as "spam", you may want to remove the email from your database)
+-   benlehr\MailTracker\Events\ComplaintMessageEvent (when you received a complaint, ex: marked as "spam", you may want to remove the email from your database)
     - Public attribute `sent_email` contains the `SentEmail` model
     - Public attribute `email_address` contains the specific address that was used to trigger the event
--   jdavidbakr\MailTracker\Events\PermanentBouncedMessageEvent (when you receive a permanent bounce, you may want to mark the email as bad or remove it from your database)
-    jdavidbakr\MailTracker\Events\TransientBouncedMessageEvent (when you receive a transient bounce.  Check the event's public attributes for `bounce_sub_type` and `diagnostic_code` to determine if you want to do additional processing when this event is received.)
+-   benlehr\MailTracker\Events\PermanentBouncedMessageEvent (when you receive a permanent bounce, you may want to mark the email as bad or remove it from your database)
+    benlehr\MailTracker\Events\TransientBouncedMessageEvent (when you receive a transient bounce.  Check the event's public attributes for `bounce_sub_type` and `diagnostic_code` to determine if you want to do additional processing when this event is received.)
     - Public attribute `sent_email` contains the `SentEmail` model
     - Public attribute `email_address` contains the specific address that was used to trigger the event
 
@@ -140,7 +140,7 @@ To install an event listener, you will want to create a file like the following:
 
 namespace App\Listeners;
 
-use jdavidbakr\MailTracker\Events\ViewEmailEvent;
+use benlehr\MailTracker\Events\ViewEmailEvent;
 
 class EmailViewed
 {
@@ -173,7 +173,7 @@ class EmailViewed
 
 namespace App\Listeners;
 
-use jdavidbakr\MailTracker\Events\PermanentBouncedMessageEvent;
+use benlehr\MailTracker\Events\PermanentBouncedMessageEvent;
 
 class BouncedEmail
 {
@@ -209,22 +209,22 @@ Then you must register the events you want to act on in your \App\Providers\Even
  * @var array
  */
 protected $listen = [
-    'jdavidbakr\MailTracker\Events\EmailSentEvent' => [
+    'benlehr\MailTracker\Events\EmailSentEvent' => [
         'App\Listeners\EmailSent',
     ],
-    'jdavidbakr\MailTracker\Events\ViewEmailEvent' => [
+    'benlehr\MailTracker\Events\ViewEmailEvent' => [
         'App\Listeners\EmailViewed',
     ],
-    'jdavidbakr\MailTracker\Events\LinkClickedEvent' => [
+    'benlehr\MailTracker\Events\LinkClickedEvent' => [
         'App\Listeners\EmailLinkClicked',
     ],
-    'jdavidbakr\MailTracker\Events\EmailDeliveredEvent' => [
+    'benlehr\MailTracker\Events\EmailDeliveredEvent' => [
         'App\Listeners\EmailDelivered',
     ],
-    'jdavidbakr\MailTracker\Events\ComplaintMessageEvent' => [
+    'benlehr\MailTracker\Events\ComplaintMessageEvent' => [
         'App\Listeners\EmailComplaint',
     ],
-    'jdavidbakr\MailTracker\Events\PermanentBouncedMessageEvent' => [
+    'benlehr\MailTracker\Events\PermanentBouncedMessageEvent' => [
         'App\Listeners\BouncedEmail',
     ],
 ];
@@ -267,7 +267,7 @@ Note that the headers you are attaching to the email are actually going out with
 
 The following exceptions may be thrown. You may add them to your ignore list in your exception handler, or handle them as you wish.
 
--   jdavidbakr\MailTracker\Exceptions\BadUrlLink - Something went wrong with the url link. Basically, the system could not properly parse the URL link to send the redirect to.
+-   benlehr\MailTracker\Exceptions\BadUrlLink - Something went wrong with the url link. Basically, the system could not properly parse the URL link to send the redirect to.
 
 ## Amazon SES features
 
@@ -302,16 +302,16 @@ If you discover any security related issues, please email me@jdavidbaker.com ins
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/jdavidbakr/mail-tracker.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/benlehr/mail-tracker.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/jdavidbakr/mail-tracker/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/jdavidbakr/MailTracker.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/jdavidbakr/MailTracker.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/jdavidbakr/mail-tracker.svg?style=flat-square
-[link-packagist]: https://packagist.org/packages/jdavidbakr/mail-tracker
-[link-travis]: https://travis-ci.com/jdavidbakr/mail-tracker
-[link-scrutinizer]: https://scrutinizer-ci.com/g/jdavidbakr/MailTracker/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/jdavidbakr/MailTracker
-[link-downloads]: https://packagist.org/packages/jdavidbakr/mail-tracker
-[link-author]: https://github.com/jdavidbakr
+[ico-travis]: https://img.shields.io/travis/benlehr/mail-tracker/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/benlehr/MailTracker.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/benlehr/MailTracker.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/benlehr/mail-tracker.svg?style=flat-square
+[link-packagist]: https://packagist.org/packages/benlehr/mail-tracker
+[link-travis]: https://travis-ci.com/benlehr/mail-tracker
+[link-scrutinizer]: https://scrutinizer-ci.com/g/benlehr/MailTracker/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/benlehr/MailTracker
+[link-downloads]: https://packagist.org/packages/benlehr/mail-tracker
+[link-author]: https://github.com/benlehr
 [link-contributors]: ../../contributors

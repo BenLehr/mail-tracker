@@ -1,10 +1,10 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Events;
+namespace benlehr\MailTracker\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use benlehr\MailTracker\Model\SentEmail;
 
 class ViewEmailEvent implements ShouldQueue
 {
